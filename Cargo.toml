@@ -1,0 +1,23 @@
+[package]
+name = "simple-stats"
+version = "0.2.0"
+edition = "2024"
+description = "Lightweight system stats for terminal status lines"
+
+[features]
+default = []
+gpu = ["dep:nvml-wrapper"]
+
+[dependencies]
+sysinfo = "0.38"
+
+[dependencies.nvml-wrapper]
+version = "0.12"
+optional = true
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
