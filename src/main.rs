@@ -17,6 +17,15 @@ fn main() {
         cache_path: &cache_path,
     });
 
+    if args.debug {
+        for line in &result.debug_log {
+            eprintln!("{line}");
+        }
+        eprintln!("[values] {:?}", result.values);
+        eprintln!("[str_values] {:?}", result.str_values);
+        eprintln!("[na_keys] {:?}", result.na_keys);
+    }
+
     let na_refs: Vec<&str> = result.na_keys.iter().map(|s| s.as_str()).collect();
     let output = format::render(&args.format, &result.values, &result.str_values, &na_refs);
 

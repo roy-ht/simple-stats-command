@@ -4,6 +4,7 @@ pub struct Cli {
     pub format: String,
     pub interface: Option<String>,
     pub cache_path: Option<String>,
+    pub debug: bool,
 }
 
 pub fn parse() -> Cli {
@@ -12,6 +13,7 @@ pub fn parse() -> Cli {
         format: DEFAULT_FORMAT.to_string(),
         interface: None,
         cache_path: None,
+        debug: false,
     };
 
     let mut i = 0;
@@ -32,6 +34,9 @@ pub fn parse() -> Cli {
             "--cache-path" => {
                 i += 1;
                 cli.cache_path = Some(expect_value(&args, i, "--cache-path"));
+            }
+            "--debug" => {
+                cli.debug = true;
             }
             other => {
                 eprintln!("unknown option: {other}");
@@ -66,6 +71,7 @@ OPTIONS:
     -f, --format <TEMPLATE>    Output format template [default: {default}]
     -I, --interface <NAME>     Network interface to monitor (default: all)
         --cache-path <PATH>    Cache file path (default: /tmp/simple-stats.bin)
+        --debug                Print debug info to stderr
     -h, --help                 Print help
 
 PLACEHOLDERS:
@@ -76,7 +82,7 @@ PLACEHOLDERS:
     {{net_down}}     Download (MB/s)       {{net_up}}       Upload (MB/s)
     {{gpu_temp}}     GPU temp (C)          {{gpu_util}}     GPU usage (%)
     {{gpu_mem_used}} VRAM used (GiB)       {{gpu_mem_total}} VRAM total (GiB)
-    {{gpu_name}}     GPU model name
+    {{gpu_name}}     GPU model name        {{cuda_ver}}     CUDA driver version
 
     Precision: {{mem_used:.2}} for 2 decimal places
 ",

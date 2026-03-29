@@ -1,18 +1,22 @@
 [package]
 name = "simple-stats"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2024"
 description = "Lightweight system stats for terminal status lines"
 
 [features]
 default = []
-gpu = ["dep:nvml-wrapper"]
+gpu = ["dep:nvml-wrapper", "dep:nvml-wrapper-sys"]
 
 [dependencies]
 sysinfo = "0.38"
 
 [dependencies.nvml-wrapper]
 version = "0.12"
+optional = true
+
+[dependencies.nvml-wrapper-sys]
+version = "0.9"
 optional = true
 
 [profile.release]
