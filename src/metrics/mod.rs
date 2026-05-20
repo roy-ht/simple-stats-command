@@ -115,6 +115,12 @@ pub fn collect_all(opts: &CollectOptions) -> CollectResult {
         collect_gpu(&mut values, &mut str_values, &mut na_keys, &mut debug_log);
     }
 
+    if opts.needed.time {
+        let t = crate::clock::local_hms();
+        debug_log.push(format!("[time] local: {t}"));
+        str_values.insert("time".to_string(), t);
+    }
+
     cache::write_cache(opts.cache_path, &new_cache);
 
     CollectResult {

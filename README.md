@@ -51,6 +51,10 @@ simple-stats --format "{cpu}% | {gpu_temp}C {gpu_util}% CUDA:{cuda_ver}"
 
 # 特定のネットワークインターフェースのみ監視
 simple-stats --format "{net_down:.2}/{net_up:.2}M/s" -I eth0
+
+# 情報取得時刻を表示
+simple-stats --format "{cpu}% | {time}"
+# => 23% | 14:23:05
 ```
 
 ### オプション
@@ -79,6 +83,7 @@ simple-stats --format "{net_down:.2}/{net_up:.2}M/s" -I eth0
 | `{gpu_mem_total}` | VRAM総量 | GiB |
 | `{gpu_name}` | GPUモデル名 | - |
 | `{cuda_ver}` | CUDAバージョン | - |
+| `{time}` | 情報取得時刻 (ローカルタイム `HH:MM:SS`) | - |
 
 `{mem_used:.2}` のように `:.N` を付けると小数点以下の桁数を指定できる。
 
@@ -111,6 +116,7 @@ set -g status-interval 5
 simple-stats
   |-- cli.rs           手動引数パース (依存クレートなし)
   |-- cache.rs         40バイト固定長バイナリキャッシュ
+  |-- clock.rs         ローカル時刻取得 (localtime_r FFI)
   |-- format.rs        テンプレートエンジン
   |-- metrics/
   |     |-- cpu.rs     Linux: /proc/stat 直読み / macOS: sysinfo

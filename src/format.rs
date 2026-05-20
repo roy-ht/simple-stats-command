@@ -131,6 +131,7 @@ pub struct NeededMetrics {
     pub memory: bool,
     pub network: bool,
     pub gpu: bool,
+    pub time: bool,
 }
 
 pub fn parse_needed(format: &str) -> NeededMetrics {
@@ -139,6 +140,7 @@ pub fn parse_needed(format: &str) -> NeededMetrics {
     let mut memory = false;
     let mut network = false;
     let mut gpu = false;
+    let mut time = false;
 
     let bytes = format.as_bytes();
     let len = bytes.len();
@@ -157,6 +159,8 @@ pub fn parse_needed(format: &str) -> NeededMetrics {
                     network = true;
                 } else if key.starts_with("gpu_") || key.starts_with("cuda_") {
                     gpu = true;
+                } else if key == "time" {
+                    time = true;
                 }
                 i += close + 1;
                 continue;
@@ -170,6 +174,7 @@ pub fn parse_needed(format: &str) -> NeededMetrics {
         memory,
         network,
         gpu,
+        time,
     }
 }
 

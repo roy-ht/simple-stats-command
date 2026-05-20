@@ -1,4 +1,5 @@
 mod cache;
+mod clock;
 mod cli;
 mod format;
 mod metrics;

@@ -83,6 +83,7 @@ PLACEHOLDERS:
     {{gpu_temp}}     GPU temp (C)          {{gpu_util}}     GPU usage (%)
     {{gpu_mem_used}} VRAM used (GiB)       {{gpu_mem_total}} VRAM total (GiB)
     {{gpu_name}}     GPU model name        {{cuda_ver}}     CUDA driver version
+    {{time}}         Collection time (local HH:MM:SS)
 
     Precision: {{mem_used:.2}} for 2 decimal places
 ",
